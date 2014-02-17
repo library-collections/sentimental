@@ -13,7 +13,7 @@ class OnlineClassifier:
         self.label_encoder.fit(self.supported_labels)
 
         # seed
-        seed_examples = ['I like pie', 'i hate chicken']
+        seed_examples = ['I really like pie', 'i really hate chicken']
         seed_labels = ['neg', 'pos']
 
         self.vectorizer = CountVectorizer(min_df=2, binary=True) #we only use binary features
