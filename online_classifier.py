@@ -8,7 +8,7 @@ import pickle as pickle
 class OnlineClassifier:
 
     def __init__(self):
-        self.supported_labels = ['pos', 'neg']
+        self.supported_labels = ['neg', 'pos']
         self.label_encoder = preprocessing.LabelEncoder()
         self.label_encoder.fit(self.supported_labels)
 
