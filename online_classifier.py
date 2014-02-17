@@ -3,7 +3,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn import preprocessing
 import os
 import numpy as np
-import cPickle as pickle
+import pickle as pickle
 
 class OnlineClassifier:
 
