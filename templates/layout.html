@@ -23,8 +23,10 @@
     <div class="container">
 
         <header class="clearfix">
+            <h1>Sentimental</h1>
         </header>
 
+        <div class=flashes>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <ul class="list-unstyled">
@@ -37,9 +39,14 @@
                 </ul>
             {% endif %}
         {% endwith %}
+        </div>
 
         <div class="main">
+
+
             {% block body %}{% endblock %}
+
+            <small><span class="glyphicon glyphicon-copyright-mark"></span>2014 by Victor Zhong</small>
         </div>
     </div>
 
@@ -61,7 +68,6 @@
       })();
     </script>
     <!-- End Piwik Code -->
-
 
   </body>
 
