@@ -16,12 +16,12 @@ class OnlineClassifier:
         seed_examples = ['I like pie', 'i hate chicken']
         seed_labels = ['neg', 'pos']
 
-        self.vectorizer = CountVectorizer(min_df=1, binary=True) #we only use binary features
+        self.vectorizer = CountVectorizer(min_df=2, binary=True) #we only use binary features
 
         seed_X = self.vectorizer.fit_transform(seed_examples)
         seed_y = self.label_encoder.transform(seed_labels)
 
-        self.model = SGDClassifier(loss='log', penalty='l2', alpha=0.01)
+        self.model = SGDClassifier(loss='log', penalty='l2', alpha=0.005)
         self.model.partial_fit(seed_X, seed_y, classes=seed_y)
 
         self.vocabulary = dict([(name, idx) for idx, name in enumerate(self.vectorizer.get_feature_names())])
