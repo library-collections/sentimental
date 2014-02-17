@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
     <div class="jumbotron">
+        <h2>Word Sentiment</h2>
         {% for word, coef in coefficients %}
             <div class="row">
                 <div class="col-lg-2">{{ word }}</div>
