@@ -16,7 +16,7 @@ class OnlineClassifier:
         seed_examples = ['I really like pie', 'i really hate chicken']
         seed_labels = ['neg', 'pos']
 
-        self.vectorizer = CountVectorizer(min_df=2, binary=True) #we only use binary features
+        self.vectorizer = CountVectorizer(min_df=1, binary=True) #we only use binary features
 
         seed_X = self.vectorizer.fit_transform(seed_examples)
         seed_y = self.label_encoder.transform(seed_labels)
