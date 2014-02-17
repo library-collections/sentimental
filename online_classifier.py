@@ -1,7 +1,7 @@
 from sklearn.linear_model import SGDClassifier
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn import preprocessing
-import os
+import os, random
 import numpy as np
 import pickle as pickle
 
@@ -21,7 +21,7 @@ class OnlineClassifier:
         seed_X = self.vectorizer.fit_transform(seed_examples)
         seed_y = self.label_encoder.transform(seed_labels)
 
-        self.model = SGDClassifier(loss='log')
+        self.model = SGDClassifier(loss='log', penalty='l2', alpha=0.01)
         self.model.partial_fit(seed_X, seed_y, classes=seed_y)
 
         self.vocabulary = dict([(name, idx) for idx, name in enumerate(self.vectorizer.get_feature_names())])
@@ -81,9 +81,10 @@ class OnlineClassifier:
         new_proba = self.model.predict_proba(new_X).tolist()[0]
         return new_y, new_proba
 
-    def get_coefficients(self):
+    def get_coefficients(self, num=0):
         coefficients = {}
-        for word, index in self.vocabulary.items():
+        vocab = random.sample(self.vocabulary.items(), num) if num else self.vocabulary.items()
+        for word, index in vocab:
             coefficients[word] = self.model.coef_.tolist()[0][index]
         return coefficients
 
@@ -99,3 +100,25 @@ class OnlineClassifier:
             coefficient = self.model.coef_.tolist()[0][ self.vocabulary[w] ] if w in self.vocabulary.keys() else 0
             answer += [(w, coefficient)]
         return answer
+
+
+    def initialize_from_movie_reviews(self):
+        import urllib
+
+        class Example:
+            def __init__(self, text, label):
+                self.text = text
+                self.label = label
+            def __repr__(self):
+                return self.label + "\t" + self.text
+            def __repr__(self):
+                return self.label + "\t" + self.text
+
+        link = "https://dl.dropboxusercontent.com/u/9015381/notebook/movie_reviews.txt"
+        f = urllib.urlopen(link)
+        examples = [ Example(e.split("\t")[1], e.split("\t")[0]) for e in f.read().split("\n") if e ]
+
+        corpus = [e.text for e in examples]
+        labels = [e.label for e in examples]
+
+        self.train(corpus, labels)

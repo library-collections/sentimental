@@ -22,3 +22,5 @@ And that should be it!
 ```
 python sentimental.py
 ```
+
+Note that to accommodate file access restrictions on Heroku

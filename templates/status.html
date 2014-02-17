@@ -2,14 +2,11 @@
 {% block body %}
     <div class="jumbotron">
         <h2>Word Sentiment</h2>
+        <p>I currently know of {{ vocab_size }} words. Here are the weights corresponding to {{ num_words }} randomly selected words.</p>
         {% for word, coef in coefficients %}
             <div class="row">
                 <div class="col-lg-2">{{ word }}</div>
-                <div class="progress col-lg-10">
-                    <div class="progress-bar progress-bar-{{ "success" if coef>0 else "danger" }}" role="progressbar" aria-valuenow="{{ (coef/max_coef*100)|abs |round(2, 'floor') }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (coef/max_coef*100)|abs }}%;">
-                        {{ coef | round(2,'floor') }}
-                    </div>
-                </div>
+                <div class="col-lg-10"><div class="label label-{{ "success" if coef>0 else "danger" }}">{{ coef|round(4, 'floor') }}</div></div>
             </div>
         {% endfor %}
     </div>

@@ -11,9 +11,7 @@ app.config.from_object('config')
 root_path = app.config['SAVE_PATH']
 
 classifier = OnlineClassifier()
-# if os.path.isfile(os.path.join(root_path, 'online_classifier.pickle')):
-#     classifier.load(root_path)
-# classifier.save(root_path) # Heroku is ready only
+classifier.initialize_from_movie_reviews() #this takes a while
 
 pattern = re.compile('[\W_]+')
 
@@ -48,9 +46,12 @@ def train():
 
 @app.route('/status')
 def status():
+    num_words = 100
+    coefficients = sorted(classifier.get_coefficients(num_words).items(), key=lambda x: x[1], reverse=True)
     return render_template('status.html',
-                           max_coef = classifier.get_max_coefficient(),
-                           coefficients = sorted(classifier.get_coefficients().items(), key=lambda x: x[1], reverse=True))
+                           num_words = num_words,
+                           coefficients = coefficients,
+                           vocab_size = len(classifier.vocabulary))
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
