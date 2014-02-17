@@ -13,7 +13,7 @@ root_path = app.config['SAVE_PATH']
 classifier = OnlineClassifier()
 if os.path.isfile(os.path.join(root_path, 'online_classifier.pickle')):
     classifier.load(root_path)
-classifier.save(root_path)
+# classifier.save(root_path) # Heroku is ready only
 
 pattern = re.compile('[\W_]+')
 
