@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+    <div class="jumbotron">
+        <form class="form-inline" role="form" action="" method="post" name="predict">
+            {{form.hidden_tag()}}
+            <h1>Say something</h1>
+            <div class="form-group">
+                <input name="example" type="text" class="form-control" placeholder="Oh happy day!" style="min-width: 300px;">
+                <input class="btn btn-lg btn-primary" type="submit" value="Go!">
+            </div>
+        </form>
+    </div>
+
+
+
+{% endblock %}
