@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template, flash, redirect
 from forms import PredictForm, TrainForm
 from online_classifier import OnlineClassifier
-import re
+import re, os
 
 app = Flask(__name__)
 
@@ -11,7 +11,8 @@ app.config.from_object('config')
 root_path = app.config['SAVE_PATH']
 
 classifier = OnlineClassifier()
-classifier.load(root_path)
+if os.path.isfile(os.path.join(root_path, 'online_classifier.pickle')):
+    classifier.load(root_path)
 classifier.save(root_path)
 
 pattern = re.compile('[\W_]+')
