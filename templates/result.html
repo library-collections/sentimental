@@ -1,71 +1,66 @@
 {% extends "layout.html" %}
 {% block body %}
-
-    <div class="jumbotron">
-        <h2>You said...</h2>
-        {% for word, coefficient in words %}
-            {% if coefficient >= 0 %}
-                <button type="button" id="word{{ loop.index }}" class="btn btn-{{ "default" if coefficient/max_coef<0.05 else "success" }}" data-container="body" data-toggle="popover" data-placement="top" data-content="coefficient={{ coefficient|round(2, 'floor') }}">
-                    {{ word }}
-                </button>
-            {% else %}
-                <button type="button" id="word{{ loop.index }}" class="btn btn-{{ "default" if coefficient/max_coef>-0.05 else "danger" }}" data-container="body" data-toggle="popover" data-placement="top" data-content="coefficient={{ coefficient|round(2, 'floor') }}">
-                    {{ word }}
-                </button>
-            {% endif %}
-
-            <script>
-                $(document).ready(function() {
-                    $('#word{{ loop.index }}').popover();
-                });
-            </script>
-
-        {% endfor %}
-        <div class="row"><small>Click on a word to view its weight</small></div>
-
-        <h2>
-            I think this is...
-        </h2>
-        <h2>
-            <button type="button" id="sentiment" class="btn btn-{% if pos_prob > 0.55 %}success{% elif neg_prob > 0.55 %}danger{% else %}primary{% endif %}" data-container="body" data-toggle="popover" data-placement="top" data-content="positive={{ (pos_prob*100)|round(2,'floor') }}%, negative={{ (neg_prob*100)|round(2,'floor') }}%">
-                {% if pos_prob > 0.55 %}positive!{% elif neg_prob > 0.55 %}negative!{% else %}I'm not sure...{% endif %}
+    <h2>You said...</h2>
+    {% for word, coefficient in words %}
+        {% if coefficient >= 0 %}
+            <button type="button" id="word{{ loop.index }}" class="btn btn-{{ "default" if coefficient/max_coef<0.05 else "success" }}" data-container="body" data-toggle="popover" data-placement="top" data-content="coefficient={{ coefficient|round(2, 'floor') }}">
+                {{ word }}
             </button>
-        </h2>
-        <div class="row"><small>Click on the sentiment to view confidence levels</small></div>
+        {% else %}
+            <button type="button" id="word{{ loop.index }}" class="btn btn-{{ "default" if coefficient/max_coef>-0.05 else "danger" }}" data-container="body" data-toggle="popover" data-placement="top" data-content="coefficient={{ coefficient|round(2, 'floor') }}">
+                {{ word }}
+            </button>
+        {% endif %}
 
         <script>
             $(document).ready(function() {
-                $('#sentiment').popover();
+                $('#word{{ loop.index }}').popover();
             });
         </script>
 
-        <br />
+    {% endfor %}
+    <div class="row"><small>Click on a word to view its weight</small></div>
 
-        <div class="row">
-            <div class="btn-group">
+    <h2>
+        I think this is...
+    </h2>
+    <h2>
+        <button type="button" id="sentiment" class="btn btn-{% if pos_prob > 0.55 %}success{% elif neg_prob > 0.55 %}danger{% else %}primary{% endif %}" data-container="body" data-toggle="popover" data-placement="top" data-content="positive={{ (pos_prob*100)|round(2,'floor') }}%, negative={{ (neg_prob*100)|round(2,'floor') }}%">
+            {% if pos_prob > 0.55 %}positive!{% elif neg_prob > 0.55 %}negative!{% else %}I'm not sure...{% endif %}
+        </button>
+    </h2>
+    <div class="row"><small>Click on the sentiment to view confidence levels</small></div>
 
-                <a href="/" class="btn btn-default">Back</a><button type="button" class="btn btn-default">Care to help me out?</button>
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><form action="/train" method="post" name="train_pos">
-                        {{form.hidden_tag()}}
-                        <input name="example" type=hidden value="{{ example }}">
-                        <input name="label" type=hidden value="pos">
-                        <p><input class="btn btn-link btn-success" type="submit" value="I think this is positive"></p>
-                    </form></li>
-                    <li><form action="/train" method="post" name="train_neg">
-                        {{form.hidden_tag()}}
-                        <input name="example" type=hidden value="{{ example }}">
-                        <input name="label" type=hidden value="neg">
-                        <p><input class="btn btn-link btn-danger" type="submit" value="I think this is negative"></p>
-                    </form></li>
-                </ul>
-            </div>
+    <script>
+        $(document).ready(function() {
+            $('#sentiment').popover();
+        });
+    </script>
+
+    <br />
+
+    <div class="row">
+        <div class="btn-group">
+
+            <a href="/" class="btn btn-default">Back</a><button type="button" class="btn btn-default">Care to help me out?</button>
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><form action="/train" method="post" name="train_pos">
+                    {{form.hidden_tag()}}
+                    <input name="example" type=hidden value="{{ example }}">
+                    <input name="label" type=hidden value="pos">
+                    <p><input class="btn btn-link btn-success" type="submit" value="I think this is positive"></p>
+                </form></li>
+                <li><form action="/train" method="post" name="train_neg">
+                    {{form.hidden_tag()}}
+                    <input name="example" type=hidden value="{{ example }}">
+                    <input name="label" type=hidden value="neg">
+                    <p><input class="btn btn-link btn-danger" type="submit" value="I think this is negative"></p>
+                </form></li>
+            </ul>
         </div>
-
     </div>
-
 {% endblock %}
 

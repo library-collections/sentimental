@@ -1,33 +1,26 @@
 {% extends "layout.html" %}
 {% block body %}
-
-
-    <div class="jumbotron" xmlns="http://www.w3.org/1999/html">
-        <form class="form-inline" role="form" action="" method="post" name="predict">
-            {{form.hidden_tag()}}
-            <h2>Say something:</h2>
-            <div class="row">
-                <div class="input-group">
-                    <input name="example" type="text" autofocus="autofocus" placeholder="Oh happy day!" class="form-control">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="submit">Go!</button>
-                    </span>
-                </div>
+    <form class="form-inline" role="form" action="" method="post" name="predict">
+        {{form.hidden_tag()}}
+        <h2>Say something:</h2>
+        <div class="row">
+            <div class="input-group">
+                <input name="example" type="text" autofocus="autofocus" placeholder="Oh happy day!" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit">Go!</button>
+                </span>
             </div>
-        </form>
+        </div>
+    </form>
 
-        <br />
+    <br />
 
-        <div class="row"><small>
-            I was pretrained on:
-            <a href="https://dl.dropboxusercontent.com/u/9015381/notebook/movie_reviews.txt">50 random samples</a> from
-            <a href="https://www.cs.cornell.edu/people/pabo/movie-review-data/">Cornell Movie Reviews</a> and
-            <a href="https://dl.dropboxusercontent.com/u/9015381/notebook/twitter.txt">5000 random samples</a> from
-            <a href="http://help.sentiment140.com/for-students">Sentiment140 Tweets</a>
-        </small></div>
-        <div class="row"><small>I am using: <i>unigrams+bigrams, logistic regression</i></small></div>
-    </div>
-
-
-
+    <div class="row"><small>
+        I was pretrained on:
+        <a href="https://dl.dropboxusercontent.com/u/9015381/notebook/movie_reviews.txt">50 random samples</a> from
+        <a href="https://www.cs.cornell.edu/people/pabo/movie-review-data/">Cornell Movie Reviews</a> and
+        <a href="https://dl.dropboxusercontent.com/u/9015381/notebook/twitter.txt">5000 random samples</a> from
+        <a href="http://help.sentiment140.com/for-students">Sentiment140 Tweets</a>
+    </small></div>
+    <div class="row"><small>I am using: <i>unigrams+bigrams, logistic regression</i></small></div>
 {% endblock %}

@@ -1,9 +1,9 @@
 from sklearn.linear_model import SGDClassifier
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn import preprocessing
-import os, random
+import os, random, urllib
 import numpy as np
-import pickle as pickle
+import cPickle as pickle
 
 class OnlineClassifier:
 
@@ -109,7 +109,6 @@ class OnlineClassifier:
 
 
     def initialize_from(self, random_sample=100, url="https://dl.dropboxusercontent.com/u/9015381/notebook/movie_reviews.txt"):
-        import urllib
 
         class Example:
             def __init__(self, text, label):
@@ -128,3 +127,15 @@ class OnlineClassifier:
         labels = [e.label for e in examples]
 
         self.train(corpus, labels, 0.1)
+
+    def as_pickle_str(self):
+        s = pickle.dumps(self)
+        return s
+
+    @staticmethod
+    def load_from(url):
+        f = urllib.urlopen(url)
+        model = pickle.load(f)
+        f.close()
+        assert isinstance(model, OnlineClassifier)
+        return model

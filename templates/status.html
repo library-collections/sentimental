@@ -1,12 +1,25 @@
 {% extends "layout.html" %}
 {% block body %}
-    <div class="jumbotron">
-        <h2>Word Sentiment</h2>
-        <p>I currently know of {{ vocab_size }} words. Here are the weights corresponding to {{ num_words }} randomly selected words.</p>
-        {% for word, coef in coefficients %}
+    <h2>Word Sentiment</h2>
+    <p>I currently know of {{ vocab_size }} words. Here are the weights corresponding to {{ num_words }} randomly selected words.</p>
+    <p>
+        <a href="/download"><small>Download current model</small></a>
+        <span class="glyphicon glyphicon-hdd"></span>
+    </p>
+
+    <div class="col-sm-6">
+        {% for word, coef in pos_coefficients %}
             <div class="row">
-                <div class="col-lg-2">{{ word }}</div>
-                <div class="col-lg-10"><div class="label label-{{ "success" if coef>0 else "danger" }}">{{ coef|round(4, 'floor') }}</div></div>
+                <div class="label label-{{ "success" if coef>0 else "danger" }}">{{ '%0.4f'| format(coef|float) }}</div>
+                {{ word }}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="col-sm-6">
+        {% for word, coef in neg_coefficients %}
+            <div class="row">
+                <div class="label label-{{ "success" if coef>0 else "danger" }}">{{ '%0.4f'| format(coef|float) }}</div>
+                {{ word }}
             </div>
         {% endfor %}
     </div>
