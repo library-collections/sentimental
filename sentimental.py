@@ -11,7 +11,10 @@ app.config.from_object('config')
 root_path = app.config['SAVE_PATH']
 
 classifier = OnlineClassifier()
-classifier.initialize_from_movie_reviews() #this takes a while
+print 'initializing from movie reviews'
+classifier.initialize_from(random_sample=50, url="https://dl.dropboxusercontent.com/u/9015381/notebook/movie_reviews.txt")
+print 'initializing from twitter'
+classifier.initialize_from(random_sample=5000, url="https://dl.dropboxusercontent.com/u/9015381/notebook/twitter.txt")
 
 pattern = re.compile('[\W_]+')
 

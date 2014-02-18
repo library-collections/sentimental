@@ -21,7 +21,7 @@ class OnlineClassifier:
         seed_X = self.vectorizer.fit_transform(seed_examples)
         seed_y = self.label_encoder.transform(seed_labels)
 
-        self.model = SGDClassifier(loss='log', penalty='l2', alpha=0.05, fit_intercept=False)
+        self.model = SGDClassifier(loss='log', penalty='l2', alpha=0.01, fit_intercept=False)
         self.model.partial_fit(seed_X, seed_y, classes=seed_y)
 
         self.vocabulary = dict([(name, idx) for idx, name in enumerate(self.vectorizer.get_feature_names())])
@@ -102,7 +102,7 @@ class OnlineClassifier:
         return answer
 
 
-    def initialize_from_movie_reviews(self):
+    def initialize_from(self, random_sample=100, url="https://dl.dropboxusercontent.com/u/9015381/notebook/movie_reviews.txt"):
         import urllib
 
         class Example:
@@ -114,11 +114,11 @@ class OnlineClassifier:
             def __repr__(self):
                 return self.label + "\t" + self.text
 
-        link = "https://dl.dropboxusercontent.com/u/9015381/notebook/movie_reviews.txt"
-        f = urllib.urlopen(link)
-        examples = [ Example(e.split("\t")[1], e.split("\t")[0]) for e in random.sample(f.read().split("\n"), 100) if e ]
+        f = urllib.urlopen(url)
+        examples = [ Example(e.split("\t")[1], e.split("\t")[0]) for e in random.sample(f.read().split("\n"), random_sample) if e ]
+        random.shuffle(examples)
 
         corpus = [e.text for e in examples]
         labels = [e.label for e in examples]
 
-        self.train(corpus, labels, 10)
+        self.train(corpus, labels, 0.1)
