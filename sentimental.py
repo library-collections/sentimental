@@ -10,7 +10,7 @@ app.config.from_object('config')
 
 root_path = app.config['SAVE_PATH']
 
-load_from_web = 'https://dl.dropboxusercontent.com/u/9015381/website/projects/sentimental/classifier.pickle'
+load_from_web = ''
 
 if load_from_web:
     classifier = OnlineClassifier.load_from(load_from_web)
