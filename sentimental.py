@@ -57,4 +57,4 @@ def status():
                            vocab_size = len(classifier.vocabulary))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

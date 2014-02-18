@@ -27,8 +27,8 @@
             I think this is...
         </h2>
         <h2>
-            <button type="button" id="sentiment" class="btn btn-{% if pos_prob > 0.60 %}success{% elif neg_prob > 0.60 %}danger{% else %}primary{% endif %}" data-container="body" data-toggle="popover" data-placement="top" data-content="positive={{ (pos_prob*100)|round(2,'floor') }}%, negative={{ (neg_prob*100)|round(2,'floor') }}%">
-                {% if pos_prob > 0.60 %}positive!{% elif neg_prob > 0.60 %}negative!{% else %}I'm not sure...{% endif %}
+            <button type="button" id="sentiment" class="btn btn-{% if pos_prob > 0.55 %}success{% elif neg_prob > 0.55 %}danger{% else %}primary{% endif %}" data-container="body" data-toggle="popover" data-placement="top" data-content="positive={{ (pos_prob*100)|round(2,'floor') }}%, negative={{ (neg_prob*100)|round(2,'floor') }}%">
+                {% if pos_prob > 0.55 %}positive!{% elif neg_prob > 0.55 %}negative!{% else %}I'm not sure...{% endif %}
             </button>
         </h2>
         <div class="row"><small>Click on the sentiment to view confidence levels</small></div>

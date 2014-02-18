@@ -21,7 +21,7 @@ class OnlineClassifier:
         seed_X = self.vectorizer.fit_transform(seed_examples)
         seed_y = self.label_encoder.transform(seed_labels)
 
-        self.model = SGDClassifier(loss='log', penalty='l2', alpha=0.01, fit_intercept=False)
+        self.model = SGDClassifier(loss='log', penalty='l2', alpha=0.005, fit_intercept=False)
         self.model.partial_fit(seed_X, seed_y, classes=seed_y)
 
         self.vocabulary = dict([(name, idx) for idx, name in enumerate(self.vectorizer.get_feature_names())])
@@ -96,7 +96,13 @@ class OnlineClassifier:
 
     def get_coefficients_for(self, sentence):
         answer = []
-        for w in sentence.split():
+        unigrams = sentence.split()
+
+        bigrams = []
+        for idx in range(len(unigrams)-1):
+            bigrams += [unigrams[idx] + " " + unigrams[idx+1]]
+
+        for w in unigrams+bigrams:
             coefficient = self.model.coef_.tolist()[0][ self.vocabulary[w] ] if w in self.vocabulary.keys() else 0
             answer += [(w, coefficient)]
         return answer
