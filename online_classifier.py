@@ -21,7 +21,7 @@ class OnlineClassifier:
         seed_X = self.vectorizer.fit_transform(seed_examples)
         seed_y = self.label_encoder.transform(seed_labels)
 
-        self.model = SGDClassifier(loss='log', penalty='l2', alpha=0.005, fit_intercept=False)
+        self.model = SGDClassifier(loss='log', penalty='l2', alpha=0.05, fit_intercept=False)
         self.model.partial_fit(seed_X, seed_y, classes=seed_y)
 
         self.vocabulary = dict([(name, idx) for idx, name in enumerate(self.vectorizer.get_feature_names())])
