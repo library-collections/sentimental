@@ -16,7 +16,7 @@ class OnlineClassifier:
         seed_examples = ['I really like pie', 'i really hate chicken']
         seed_labels = ['neg', 'pos']
 
-        self.vectorizer = CountVectorizer(min_df=1, binary=True) #we only use binary features
+        self.vectorizer = CountVectorizer(min_df=1, ngram_range=(1,2), binary=True) #we only use binary features
 
         seed_X = self.vectorizer.fit_transform(seed_examples)
         seed_y = self.label_encoder.transform(seed_labels)
@@ -54,9 +54,9 @@ class OnlineClassifier:
         self.vocabulary = data['vocabulary']
         self.vectorizer = data['vectorizer']
 
-    def train(self, new_examples, new_labels):
+    def train(self, new_examples, new_labels, min_df=0):
 
-        new_vectorizer = CountVectorizer(min_df=1, binary=True)
+        new_vectorizer = CountVectorizer(min_df=1, ngram_range=(1,2), binary=True)
         new_vectorizer.fit(new_examples)
         new_words = new_vectorizer.get_feature_names()
 
@@ -69,7 +69,7 @@ class OnlineClassifier:
         new_weights = np.zeros(shape=(self.model.coef_.shape[0], len(unknown_words)))
         self.model.coef_ = np.concatenate((self.model.coef_, new_weights), axis=1)
 
-        self.vectorizer = CountVectorizer(min_df=0, binary=True, vocabulary = self.vocabulary)
+        self.vectorizer = CountVectorizer(min_df=min_df, binary=True, ngram_range=(1,2), vocabulary = self.vocabulary)
         new_X = self.vectorizer.fit_transform(new_examples)
         new_y = self.label_encoder.transform(new_labels)
 
@@ -116,9 +116,9 @@ class OnlineClassifier:
 
         link = "https://dl.dropboxusercontent.com/u/9015381/notebook/movie_reviews.txt"
         f = urllib.urlopen(link)
-        examples = [ Example(e.split("\t")[1], e.split("\t")[0]) for e in f.read().split("\n") if e ]
+        examples = [ Example(e.split("\t")[1], e.split("\t")[0]) for e in random.sample(f.read().split("\n"), 100) if e ]
 
         corpus = [e.text for e in examples]
         labels = [e.label for e in examples]
 
-        self.train(corpus, labels)
+        self.train(corpus, labels, 10)

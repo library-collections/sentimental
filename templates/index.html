@@ -2,7 +2,7 @@
 {% block body %}
 
 
-    <div class="jumbotron">
+    <div class="jumbotron" xmlns="http://www.w3.org/1999/html">
         <form class="form-inline" role="form" action="" method="post" name="predict">
             {{form.hidden_tag()}}
             <h2>Say something:</h2>
@@ -11,6 +11,11 @@
                 <input class="btn btn-lg btn-primary" type="submit" value="Go!">
             </div>
         </form>
+
+        <br />
+
+        <div class="row"><small>I was pretrained on: <i>Cornell Movie Reviews</i></small></div>
+        <div class="row"><small>I am using: <i>unigrams+bigrams, logistic regression</i></small></div>
     </div>
 
 
