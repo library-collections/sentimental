@@ -10,7 +10,7 @@ app.config.from_object('config')
 
 root_path = app.config['SAVE_PATH']
 
-load_from_web = 'https://dl.dropboxusercontent.com/u/9015381/Website/projects/sentimental/classifier.pickle'
+load_from_web = 'https://dl.dropboxusercontent.com/u/9015381/website/projects/sentimental/classifier.pickle'
 
 if load_from_web:
     classifier = OnlineClassifier.load_from(load_from_web)
@@ -69,7 +69,9 @@ def status():
 
 @app.route('/download')
 def download():
-    response = make_response(classifier.as_pickle_str())
+    file_path = classifier.to_pickle()
+    with open(file_path, 'rb') as f:
+        response = make_response(f.read())
     response.headers["Content-Disposition"] = "attachment; filename=classifier.pickle"
     return response
 

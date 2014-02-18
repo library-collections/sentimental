@@ -128,14 +128,18 @@ class OnlineClassifier:
 
         self.train(corpus, labels, 0.1)
 
-    def as_pickle_str(self):
-        s = pickle.dumps(self)
-        return s
+    def to_pickle(self):
+        file_path = '/tmp/model_download.pickle'
+        pickle.dump(self, open(file_path, 'wb'))
+        return file_path
 
     @staticmethod
     def load_from(url):
-        f = urllib.urlopen(url)
-        model = pickle.load(f)
-        f.close()
+        url_handle = urllib.urlopen(url)
+        file_path = '/tmp/model_upload.pickle'
+        with open(file_path, 'wb') as f:
+            f.write(url_handle.read())
+        url_handle.close()
+        model = pickle.load(open(file_path, 'rb'))
         assert isinstance(model, OnlineClassifier)
         return model
