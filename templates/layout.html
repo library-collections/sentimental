@@ -22,23 +22,27 @@
 
     <div class="container">
 
-        <header class="clearfix">
-            <nav class="navbar navbar-default" role="navigation">
-              <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                  <a class="navbar-brand" href="/">Sentimental</a>
-                </div>
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">Sentimental</a>
+            </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/status">Status</a></li>
-                  </ul>
-                </div><!-- /.navbar-collapse -->
-              </div><!-- /.container-fluid -->
-            </nav>
-        </header>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/status">Status</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
 
         <div class=flashes>
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -60,7 +64,7 @@
 
             {% block body %}{% endblock %}
 
-            <small><span class="glyphicon glyphicon-copyright-mark"></span>2014 by Victor Zhong</small>
+            <small><span class="glyphicon glyphicon-copyright-mark"></span>2014 by <a href="http://www.victorzhong.com">Victor Zhong</a></small>
         </div>
     </div>
 

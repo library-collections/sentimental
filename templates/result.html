@@ -41,26 +41,28 @@
 
         <br />
 
-        <div class="btn-group">
+        <div class="row">
+            <div class="btn-group">
 
-            <a href="/" class="btn btn-default">Back</a><button type="button" class="btn btn-default">Care to help me out?</button>
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><form action="/train" method="post" name="train_pos">
-                    {{form.hidden_tag()}}
-                    <input name="example" type=hidden value="{{ example }}">
-                    <input name="label" type=hidden value="pos">
-                    <p><input class="btn btn-link btn-success" type="submit" value="I think this is positive"></p>
-                </form></li>
-                <li><form action="/train" method="post" name="train_neg">
-                    {{form.hidden_tag()}}
-                    <input name="example" type=hidden value="{{ example }}">
-                    <input name="label" type=hidden value="neg">
-                    <p><input class="btn btn-link btn-danger" type="submit" value="I think this is negative"></p>
-                </form></li>
-            </ul>
+                <a href="/" class="btn btn-default">Back</a><button type="button" class="btn btn-default">Care to help me out?</button>
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><form action="/train" method="post" name="train_pos">
+                        {{form.hidden_tag()}}
+                        <input name="example" type=hidden value="{{ example }}">
+                        <input name="label" type=hidden value="pos">
+                        <p><input class="btn btn-link btn-success" type="submit" value="I think this is positive"></p>
+                    </form></li>
+                    <li><form action="/train" method="post" name="train_neg">
+                        {{form.hidden_tag()}}
+                        <input name="example" type=hidden value="{{ example }}">
+                        <input name="label" type=hidden value="neg">
+                        <p><input class="btn btn-link btn-danger" type="submit" value="I think this is negative"></p>
+                    </form></li>
+                </ul>
+            </div>
         </div>
 
     </div>
